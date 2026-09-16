@@ -2,6 +2,9 @@
 .vs/
 **/.vs/
 
+# Visual Studio user-specific files
+*.csproj.user
+
 # .NET
 bin/
 obj/
