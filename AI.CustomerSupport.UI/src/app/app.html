@@ -1,0 +1,103 @@
+<div class="chat-container">
+
+  <div class="chat-header">
+    <h1>AI Customer Support</h1>
+    <p>Your intelligent support assistant</p>
+  </div>
+
+  <div class="chat-messages">
+
+    <!-- Welcome message -->
+    <div class="message assistant">
+      <div class="avatar">AI</div>
+
+      <div class="message-content">
+        <div class="sender">AI Assistant</div>
+
+        <div class="bubble">
+          Hello! 👋<br />
+          How can I help you today?
+          <br /><br />
+          You can ask me about:
+          <ul>
+            <li>Warranty policy</li>
+            <li>Repairs</li>
+            <li>Support tickets</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat messages -->
+    @for (message of messages; track $index) {
+
+      <div
+        class="message"
+        [class.user]="message.role === 'user'"
+        [class.assistant]="message.role === 'assistant'">
+
+        <div class="avatar">
+          {{ message.role === 'user' ? 'You' : 'AI' }}
+        </div>
+
+        <div class="message-content">
+
+          <div class="sender">
+            {{ message.role === 'user' ? 'You' : 'AI Assistant' }}
+          </div>
+
+          <div class="bubble">
+            {{ message.content }}
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+    <!-- Loading -->
+    @if (isLoading) {
+
+      <div class="message assistant">
+
+        <div class="avatar">AI</div>
+
+        <div class="message-content">
+
+          <div class="sender">AI Assistant</div>
+
+          <div class="bubble typing">
+            Thinking...
+          </div>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+  <!-- Input -->
+  <div class="chat-input">
+
+    <input
+      type="text"
+      [(ngModel)]="userMessage"
+      (keyup.enter)="sendMessage()"
+      placeholder="Ask about warranty, repairs, tickets..."
+      [disabled]="isLoading"
+    />
+
+    <button
+      (click)="sendMessage()"
+      [disabled]="!userMessage.trim() || isLoading">
+
+      Send
+
+    </button>
+
+  </div>
+
+</div>
